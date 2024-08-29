@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Widget</title>
+    <link rel="stylesheet" href="/public/style.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://unpkg.com/axios@1.6.7/dist/axios.min.js"></script>
+    <script defer src="/alpine.js"></script> <!-- Include the external JavaScript file -->
+</head>
+<body>
+    <h1>Car Widget</h1>
+
+    <div id="mostPopularMake"></div>
+    <button id="viewMostPopularBtn">View Most Popular Car Make</button>
+
+    <form id="carForm">
+        <input type="hidden" id="carId">
+        <input type="text" id="make" placeholder="Make" required>
+        <input type="text" id="model" placeholder="Model" required>
+        <input type="text" id="color" placeholder="Color" required>
+        <button type="submit" id="submitBtn">Add Car</button>
+    </form>
+
+    <h2>Car List</h2>
+    <ul id="carList"></ul>
+</body>
+</html>

@@ -1,0 +1,71 @@
+body {
+    font-family: Arial, sans-serif;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    height: 100vh;
+    background-image: url('/public/car.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: white;
+}
+
+#carList {
+    list-style-type: none;
+    padding: 0;
+}
+
+#carList li {
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #3bd3ee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 5px;
+}
+
+form {
+    margin-bottom: 20px;
+}
+
+input, button {
+    margin: 5px 0;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: #37ebaf;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #ee26bc;
+}
+
+.color-box {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    margin-right: 10px;
+    border: 1px solid #000;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 600px) {
+    #carList li {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    button, input {
+        width: 100%;
+        padding: 8px;
+    }
+}
