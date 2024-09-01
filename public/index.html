@@ -1,29 +1,163 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Widget</title>
-    <link rel="stylesheet" href="/public/style.css">
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <script src="https://unpkg.com/axios@1.6.7/dist/axios.min.js"></script>
-    <script defer src="/alpine.js"></script> <!-- Include the external JavaScript file -->
+    <title>Car CRUD API</title>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    <h1>Car Widget</h1>
+    <div>
+        <h1>Most Popular Car Make</h1>
+    </div>
+    <div x-data="carApp" x-init="init()">
+        <!-- <h5>Add or Update Car</h5> -->
+        <form @submit.prevent="addOrUpdateCar">
+            <label>
+                Make:
+                <input type="text" x-model="form.make" required>
+            </label>
+            <label>
+                Model:
+                <input type="text" x-model="form.model" required>
+            </label>
+            <label>
+                Color:
+                <input type="text" x-model="form.color" required>
+            </label>
+            <label>
+                Registration Number:
+                <input type="text" x-model="form.reg_number" required>
+            </label>
+            <button type="submit" x-text="isEditing ? 'Update Car' : 'Add Car'"></button>
+        </form>
 
-    <div id="mostPopularMake"></div>
-    <button id="viewMostPopularBtn">View Most Popular Car Make</button>
+        <button @click="getMostPopularMake">Get Most Popular Make</button>
+        <p x-text="mostPopularMake ? `Most Popular Make: ${mostPopularMake}` : ''"></p>
 
-    <form id="carForm">
-        <input type="hidden" id="carId">
-        <input type="text" id="make" placeholder="Make" required>
-        <input type="text" id="model" placeholder="Model" required>
-        <input type="text" id="color" placeholder="Color" required>
-        <button type="submit" id="submitBtn">Add Car</button>
-    </form>
-
-    <h2>Car List</h2>
-    <ul id="carList"></ul>
+        <h1>Car List</h1>
+        <p>Total Number of Cars: <span x-text="carCount"></span></p>
+        <ul>
+            <template x-for="car in cars" :key="car.reg_number">
+                <li class="car-item">
+                    <!-- Color indicator box -->
+                    <div class="color-indicator" :style="{ backgroundColor: car.color.toLowerCase() }"></div>
+                    <span x-text="`${car.make} ${car.model} (${car.color}) - ${car.reg_number}`"></span>
+                    <div class="button-group">
+                        <button class="edit" @click="editCar(car)">Edit</button>
+                        <button class="delete" @click="deleteCar(car.reg_number)">Delete</button>
+                    </div>
+                </li>
+            </template>
+        </ul>
+        
+    </div>
+   
+    <script>
+        function carApp() {
+            return {
+                cars: [],
+                form: {
+                    make: '',
+                    model: '',
+                    color: '',
+                    reg_number: ''
+                },
+                mostPopularMake: '',
+                isEditing: false,
+                carCount: 0,
+                fetchCars() {
+                    axios.get('http://localhost:3000/api/cars')
+                        .then(response => {
+                            const fetchedCars = Array.isArray(response.data) ? response.data : [];
+                            // Ensure reg_number is unique
+                            const uniqueCars = fetchedCars.reduce((acc, car) => {
+                                if (!acc.some(item => item.reg_number === car.reg_number)) {
+                                    acc.push(car);
+                                }
+                                return acc;
+                            }, []);
+                            this.cars = uniqueCars;
+                            this.carCount = this.cars.length; // Update the car count
+                            localStorage.setItem('cars', JSON.stringify(this.cars));
+                        })
+                        .catch(error => {
+                            console.error('Error fetching cars:', error);
+                            alert('Failed to fetch car data.');
+                        });
+                },
+                getMostPopularMake() {
+                    axios.get('http://localhost:3000/api/cars/mostPopularMake')
+                        .then(response => {
+                            this.mostPopularMake = response.data.mostPopularMake || 'Unknown';
+                        })
+                        .catch(error => {
+                            console.error('Error fetching most popular make:', error);
+                            alert('Failed to fetch most popular make.');
+                        });
+                },
+                addOrUpdateCar() {
+                    if (!this.form.reg_number) {
+                        alert('Registration Number is required.');
+                        return;
+                    }
+                    if (this.isEditing) {
+                        axios.put(`http://localhost:3000/api/cars/${this.form.reg_number}`, this.form)
+                            .then(() => {
+                                this.fetchCars();
+                                this.resetForm();
+                            })
+                            .catch(error => {
+                                console.error('Error updating car:', error);
+                                alert('Failed to update car.');
+                            });
+                    } else {
+                        axios.post('http://localhost:3000/api/cars', this.form)
+                            .then(() => {
+                                this.fetchCars();
+                                this.resetForm();
+                            })
+                            .catch(error => {
+                                console.error('Error adding car:', error);
+                                alert('Failed to add car.');
+                            });
+                    }
+                },
+                deleteCar(reg_number) {
+                    axios.delete(`http://localhost:3000/api/cars/${reg_number}`)
+                        .then(() => {
+                            this.fetchCars();
+                        })
+                        .catch(error => {
+                            console.error('Error deleting car:', error);
+                            alert('Failed to delete car.');
+                        });
+                },
+                editCar(car) {
+                    this.form = { ...car };
+                    this.isEditing = true;
+                },
+                resetForm() {
+                    this.form = { make: '', model: '', color: '', reg_number: '' };
+                    this.isEditing = false;
+                },
+                init() {
+                    const savedCars = localStorage.getItem('cars');
+                    if (savedCars) {
+                        this.cars = JSON.parse(savedCars);
+                        this.carCount = this.cars.length; // Update the car count
+                    } else {
+                        this.fetchCars();
+                    }
+                }
+            }
+        }
+    </script>
 </body>
+
 </html>

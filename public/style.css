@@ -1,71 +1,183 @@
 body {
-    font-family: Arial, sans-serif;
-    max-width: 800px;
-    margin: 0 auto;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f4f8;
+    margin: 0;
     padding: 20px;
-    height: 100vh;
-    background-image: url('/public/car.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    color: white;
+    color: #333;
+    background-image: url(/public/carssss.avif);
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
+    background-attachment: fixed; 
 }
 
-#carList {
-    list-style-type: none;
-    padding: 0;
-}
-
-#carList li {
-    margin-bottom: 10px;
-    padding: 10px;
-    background-color: #3bd3ee;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-radius: 5px;
-}
-
-form {
+h1, h5 {
+    color: #ffffff;
+    text-align: center;
     margin-bottom: 20px;
 }
 
-input, button {
-    margin: 5px 0;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    width: 100%;
-    box-sizing: border-box;
+h3 {
+    color: #3498db;
+    font-weight: bolder;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+.car-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 10px 15px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #ce9393, #a1c4fd); 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.color-indicator {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    margin-right: 10px;
+    border: 1px solid #ddd;
+}
+
+span {
+    font-weight: bold;
+    flex-grow: 1;
+}
+
+.button-group {
+    display: flex;
+    gap: 10px;
 }
 
 button {
-    background-color: #37ebaf;
+    background-color: #3498db;
     color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 14px;
+}
+
+button.edit {
+    background-color: #12f34a;
+}
+
+button.delete {
+    background-color: #e74c3c;
 }
 
 button:hover {
-    background-color: #ee26bc;
+    opacity: 0.8;
 }
 
-.color-box {
-    width: 20px;
-    height: 20px;
-    display: inline-block;
-    margin-right: 10px;
-    border: 1px solid #000;
+form {
+    background: linear-gradient(135deg, #dd9f9f, #2c3e50); /* Mixed colors */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    display: grid;
+    gap: 15px;
 }
 
-/* Responsive Adjustments */
-@media (max-width: 600px) {
-    #carList li {
-        flex-direction: column;
-        text-align: center;
+
+label {
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
+    color: #f7f4f4;
+}
+
+input[type="text"] {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-top: 5px;
+    font-size: 14px;
+}
+
+input[type="text"]:focus {
+    border-color: #3498db;
+    outline: none;
+    box-shadow: 0 0 5px rgba(52, 152, 219, 0.2);
+}
+
+button[type="submit"] {
+    background-color: #2ecc71;
+    font-size: 16px;
+    padding: 10px;
+}
+
+button[type="submit"]:hover {
+    background-color: #27ae60;
+}
+
+p {
+    font-size: 25px;
+    margin-top: 20px;
+    color: #f8f2f7;
+    text-align: center;
+    font-weight: bold;
+}
+
+.search-input {
+    width: 100%; 
+    padding: 10px; 
+    font-size: 14px;
+}
+
+
+
+@media (max-width: 768px) {
+    .car-item {
+        flex-direction: column; 
+        align-items: flex-start; 
     }
     
-    button, input {
+    .button-group {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    button {
         width: 100%;
+        padding: 12px;
+        font-size: 16px;
+    }
+    
+    form {
+        padding: 15px;
+        display: block; 
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+
+    p {
+        font-size: 20px;
+    }
+
+    .car-item {
+        font-size: 14px; 
+    }
+
+    input[type="text"], button[type="submit"] {
+        font-size: 12px;
+    }
+
+    .search-input {
         padding: 8px;
     }
 }
