@@ -1,1 +1,0 @@
-[![Node.js CI](https://github.com/LuckyHlungwani/2024-UJ-Car-CRUD-API-Application/actions/workflows/node.js.yml/badge.svg)](https://github.com/LuckyHlungwani/2024-UJ-Car-CRUD-API-Application/actions/workflows/node.js.yml)
