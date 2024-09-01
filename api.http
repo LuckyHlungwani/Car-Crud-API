@@ -1,0 +1,42 @@
+### Fetch all cars
+GET http://localhost:3000/api/cars
+Accept: application/json
+
+###
+
+### Get the most popular car make
+GET http://localhost:3000/api/cars/mostPopularMake
+Accept: application/json
+
+###
+
+### Add a new car
+POST http://localhost:3000/api/cars
+Content-Type: application/json
+
+{
+  "make": "Toyota",
+  "model": "Corolla",
+  "color": "Blue",
+  "reg_number": "ABC1234"
+}
+
+###
+
+### Update a car by registration number
+PUT http://localhost:3000/api/cars/ABC1234
+Content-Type: application/json
+
+{
+  "make": "Toyota",
+  "model": "Camry",
+  "color": "Red"
+}
+
+###
+
+### Delete a car by registration number
+DELETE http://localhost:3000/api/cars/ABC1234
+Accept: application/json
+
+###

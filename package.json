@@ -1,24 +1,39 @@
 {
-  "name": "car-crud-api",
+  "name": "",
   "version": "1.0.0",
-  "description": "[![Node.js CI](https://github.com/LuckyHlungwani/2024-UJ-Car-CRUD-API-Application/actions/workflows/node.js.yml/badge.svg)](https://github.com/LuckyHlungwani/2024-UJ-Car-CRUD-API-Application/actions/workflows/node.js.yml)",
+  "description": "",
   "main": "index.js",
-  "directories": {
-    "test": "test"
+  "type": "module",
+  "license": "AGPL-version-3.0",
+  "private": false,
+  "engines": {
+    "node": ">= 14.0.0",
+    "npm": ">= 6.0.0"
   },
-  "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon server.js"
+  "homepage": "",
+  "repository": {
+    "type": "git",
+    "url": ""
   },
+  "bugs": "",
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": {
+    "name": "",
+    "email": "",
+    "url": ""
+  },
+  "contributors": [],
+  "scripts": {
+    "dev": "node index.js",
+    "test": "mocha"
+  },
+  "devDependencies": {
+    "chai": "^5.1.1",
+    "mocha": "^10.7.3"
+  },
   "dependencies": {
     "axios": "^1.7.7",
     "cors": "^2.8.5",
     "express": "^4.19.2"
-  },
-  "devDependencies": {
-    "nodemon": "^3.1.4"
   }
 }
