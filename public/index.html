@@ -150,7 +150,7 @@
                     const savedCars = localStorage.getItem('cars');
                     if (savedCars) {
                         this.cars = JSON.parse(savedCars);
-                        this.carCount = this.cars.length; // Update the car count
+                        this.carCount = this.cars.length; 
                     } else {
                         this.fetchCars();
                     }

@@ -4,7 +4,7 @@ body {
     margin: 0;
     padding: 20px;
     color: #333;
-    background-image: url(/public/carssss.avif);
+    background-image: url(./carssss.avif);
     background-size: cover; 
     background-position: center; 
     background-repeat: no-repeat; 
